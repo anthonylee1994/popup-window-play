@@ -5,15 +5,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
+  <style>
+    body {
+      transition: 300ms ease-in-out;
+    }
+  </style>
   <body>
     <script>
-      setInterval(function () {
-        window.resizeTo(50, 50);
-        window.moveTo(
-          Math.random() * window.screen.width,
-          Math.random() * window.screen.height
-        );
-      }, 10);
+      var x = window.screen.availWidth / 2;
+      var y = window.screen.availHeight / 2;
+      var dx = 2.2;
+      var dy = -2;
+
+      function randomBackground() {
+        document.body.style.backgroundColor = `rgb(${Math.random() * 255}, ${
+          Math.random() * 255
+        }, ${Math.random() * 255})`;
+      }
+
+      function updateWindowPosition() {
+        if (x + dx > window.screen.availWidth - 300 || x + dx <= 0) {
+          randomBackground();
+          dx = -dx;
+        } else if (y + dy > window.screen.availHeight - 340 || y + dy <= 0) {
+          randomBackground();
+          dy = -dy;
+        }
+
+        x += dx;
+        y += dy;
+
+        window.moveTo(x, 40 + y);
+      }
+
+      window.resizeTo(300, 340);
+
+      document.addEventListener("DOMContentLoaded", function () {
+        setInterval(updateWindowPosition, 10);
+      });
     </script>
   </body>
 </html>
